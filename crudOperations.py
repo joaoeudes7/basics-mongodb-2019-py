@@ -1,25 +1,24 @@
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/local")
+client = MongoClient("mongodb://localhost:27017")
 
-blogDatabase = client.blog
-usersCollection = blogDatabase.users
-articlesCollection = blogDatabase.articles
+blog_database = client.blog
+users_collection = blog_database.users
+articles_collection = blog_database.articles
 
-randomUser = usersCollection.find_one()
+randomUser = users_collection.find_one()
 
 print(randomUser)
 
-karmaCount = usersCollection.find(
-    {"karma": {"$gte": 450, "$lte": 475}}).count()
+karmaCount = users_collection.find({"karma": {"$gte": 450, "$lte": 475}}).count()
 
 print(karmaCount)
 
 # Add Comments to an article
-articlesCollection.update({"_id": 19}, {"$set": {"comments": []}})
+articles_collection.update({"_id": 19}, {"$set": {"comments": []}})
 
 # Update Comments
-articlesCollection.update({"_id": 19}, {
+articles_collection.update({"_id": 19}, {
     "$push":
     {
         "comments":
@@ -31,4 +30,4 @@ articlesCollection.update({"_id": 19}, {
 })
 
 # Delete Article
-articlesCollection.remove({"_id": 25})
+articles_collection.remove({"_id": 25})

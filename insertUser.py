@@ -1,19 +1,18 @@
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/local")
+root = MongoClient("mongodb://localhost:27017")
 
-blogDatabase = client.blog
-usersCollection = blogDatabase.users
+blog_database = root.blog
+users_collection = blog_database.users
 
-ken = {
-    "username": "kalger",
-    "password": "password",
-    "lang": "EN"
+user = {
+    "username": "joaoeudes7",
+    "password": "hi123456",
 }
 
-usersCollection.insert_one(ken)
+users_collection.insert_one(user)
 
-user = usersCollection.find_one()
+user = users_collection.find_one()
 
 print(user)
 

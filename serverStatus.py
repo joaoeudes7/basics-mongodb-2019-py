@@ -3,7 +3,7 @@ import pprint
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-uri = "mongodb://localhost:27017/local"
+uri = "mongodb://localhost:27017"
 client = MongoClient(uri)
 
 try:

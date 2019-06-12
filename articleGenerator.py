@@ -29,14 +29,14 @@ def makeUser(count):
     }
 
 
-client = pymongo.MongoClient("mongodb://localhost:27017/local")
+client = MongoClient("mongodb://localhost:27017")
 
-blogDatabase = client.blog
-usersCollection = blogDatabase.users
-articlesCollection = blogDatabase.articles
+blog_database = client.blog
+users_collection = blog_database.users
+articles_collection = blog_database.articles
 
-usersCollection.drop()
-articlesCollection.drop()
+users_collection.drop()
+articles_collection.drop()
 
 users = []
 
@@ -44,7 +44,7 @@ count = 0
 for i in range(100000):
     users.append(makeUser(i))
     if (len(users) % 1000) == 0:
-        usersCollection.insert_many(users)
+        users_collection.insert_many(users)
         count = count + 1000
         print("Inserted {} users".format(count))
         users = []
@@ -55,7 +55,7 @@ count = 0
 for i in range(100000):
     articles.append(makeArticle(i))
     if (len(articles) % 1000) == 0:
-        articlesCollection.insert_many(articles)
+        articles_collection.insert_many(articles)
         count = count + 1000
         print("Inserted {} articles".format(articles))
         articles = []

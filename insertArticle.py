@@ -1,5 +1,4 @@
-import pprint
-
+from pprint import pprint
 from datetime import datetime
 from pymongo import MongoClient
 
@@ -21,8 +20,9 @@ article = {
 
 # Let's check to make sure the author exists before inserting
 if users_collection.find_one({"username": author}):
+    users_collection.find_one({ 'username': author })
     document = articles_collection.insert_one(article)
-    pprint.pprint(article)
+    pprint(article)
 else:
     print(f"Author {author} is not a current user")
 

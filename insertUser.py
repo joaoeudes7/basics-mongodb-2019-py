@@ -1,18 +1,25 @@
+from pprint import pprint
 from pymongo import MongoClient
 
-root = MongoClient("mongodb://localhost:27017")
+# mongodb://${MONGO_USER}:${MONGO_PASSWORD}
+client = MongoClient("mongodb://localhost:27017")
 
-blog_database = root.blog
-users_collection = blog_database.users
+blog_database = client.get_database('blog')
+users_collection = blog_database.get_collection('users')
 
-user = {
-    "username": "joaoeudes7",
-    "password": "hi123456",
-}
+def creatUserBlog(username, password):
+    user = {
+        "username": username,
+        "password": password
+    }
 
-users_collection.insert_one(user)
+    users_collection.insert_one(user)
 
-user = users_collection.find_one()
+    for doc in users_collection.find({}):
+        pprint(doc)
 
-print(user)
+
+creatUserBlog("antonio", "hahah")
+
+users_collection.delete_many({ "username": "antonio" })
 
